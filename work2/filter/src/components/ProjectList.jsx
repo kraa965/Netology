@@ -1,9 +1,9 @@
 export const ProjectList = ({ projects }) => {
   return (
-    <div className={'grid grid-cols-3 w-fit gap-2 h-fit items-center'}>
+    <div className={'grid grid-cols-3 gap-2'}>
       {projects.map((item, index) => (
-        <div key={index} className={'w-fit'}>
-          <img src={item.img} alt={item.category} />
+        <div key={index}>
+          <img src={item.img} alt={item.category} className={'h-auto max-w-full '} />
         </div>
       ))}
     </div>
