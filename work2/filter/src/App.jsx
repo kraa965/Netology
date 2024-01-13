@@ -1,5 +1,4 @@
 import { Portfolio } from './components/Portfolio.jsx';
-// import './App.css';
 
 const projectList = [{
   img: 'https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/mon.jpg',
