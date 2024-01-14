@@ -9,9 +9,7 @@ export const Starts = ({ count }) => {
       {Array(count)
         .fill()
         .map((count, index) => (
-          <li key={index}>
-            <Star />
-          </li>
+          <Star key={index} />
         ))}
     </ul>
   );
