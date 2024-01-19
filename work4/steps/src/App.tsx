@@ -9,16 +9,13 @@ function App() {
 
   const handleSubmit = (date: string, distance: number) => {
     if (editingItem) {
-      // Редактирование существующей записи
       const updatedData = data.map((item) =>
         item.date === editingItem.date ? { ...item, date, distance } : item,
       );
       setData(updatedData);
       setEditingItem(null);
     } else {
-      // Добавление новой записи
       const existingItem = data.find((item) => item.date === date);
-
       if (existingItem) {
         const newData = data.map((item) =>
           item.date === date
