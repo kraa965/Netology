@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import StepsForm from "./components/StepsForm";
+import { StepsTable } from "./components/StepsTable";
+import { DataItem } from "./types/types.ts";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [data, setData] = useState<DataItem[]>([]);
+  const [editingItem, setEditingItem] = useState<DataItem | null>(null);
+
+  const handleSubmit = (date: string, distance: number) => {
+    if (editingItem) {
+      // Редактирование существующей записи
+      const updatedData = data.map((item) =>
+        item.date === editingItem.date ? { ...item, date, distance } : item,
+      );
+      setData(updatedData);
+      setEditingItem(null);
+    } else {
+      // Добавление новой записи
+      const existingItem = data.find((item) => item.date === date);
+
+      if (existingItem) {
+        const newData = data.map((item) =>
+          item.date === date
+            ? { ...item, distance: item.distance + distance }
+            : item,
+        );
+        setData(newData);
+      } else {
+        setData([...data, { date, distance }]);
+      }
+    }
+  };
+
+  const handleDelete = (date: string) => {
+    const newData = data.filter((item) => item.date !== date);
+    setData(newData);
+  };
+
+  const handleEdit = (date: string) => {
+    const itemToEdit = data.find((item) => item.date === date);
+    if (itemToEdit) {
+      setEditingItem(itemToEdit);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="flex flex-col">
+      <StepsForm data={editingItem} onSubmit={handleSubmit} />
+      <StepsTable data={data} onDelete={handleDelete} onEdit={handleEdit} />
+    </div>
+  );
 }
 
-export default App
+export default App;
