@@ -16,6 +16,7 @@ function App() {
       setEditingItem(null);
     } else {
       const existingItem = data.find((item) => item.date === date);
+
       if (existingItem) {
         const newData = data.map((item) =>
           item.date === date
