@@ -33,7 +33,7 @@ function App() {
   };
 
   const handleDelete = (date: string) => {
-    const newData = data.filter((item) => item.date !== date);
+    const newData = data.filter((item) => item.date === date);
     setData(newData);
   };
 
