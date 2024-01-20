@@ -6,7 +6,6 @@ export const StepsForm: FC<InputFormProps> = ({ data, onSubmit }) => {
   const [distance, setDistance] = useState("");
 
   useEffect(() => {
-    // Обновляем состояние при изменении внешних данных
     if (data) {
       setDate(data.date);
       setDistance(data.distance.toString());
