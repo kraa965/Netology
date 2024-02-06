@@ -1,14 +1,8 @@
-import React, { useState } from 'react';
-import './EditPost.css';
+import { FC, useState } from "react";
+import "./EditPost.css";
+import { EditPostProps } from "../interface/interface.ts";
 
-interface EditPostProps {
-  postId: number;
-  initialContent: string;
-  onCancel: () => void;
-  onSave: (newContent: string) => void;
-}
-
-const EditPost: React.FC<EditPostProps> = ({ initialContent, onCancel, onSave }) => {
+const EditPost: FC<EditPostProps> = ({ initialContent, onCancel, onSave }) => {
   const [editedContent, setEditedContent] = useState(initialContent);
 
   const handleSave = () => {
@@ -24,8 +18,12 @@ const EditPost: React.FC<EditPostProps> = ({ initialContent, onCancel, onSave })
         placeholder="Введите текст поста..."
       />
       <div>
-        <button className='save-button' onClick={handleSave}>Сохранить</button>
-        <button className='cancel-edit-button' onClick={onCancel}>Отмена</button>
+        <button className="save-button" onClick={handleSave}>
+          Сохранить
+        </button>
+        <button className="cancel-edit-button" onClick={onCancel}>
+          Отмена
+        </button>
       </div>
     </div>
   );

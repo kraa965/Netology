@@ -1,14 +1,20 @@
-export interface NoteCardProps {
-  id: number;
-  content: string;
-  onDelete: (id: number) => void;
+export interface EditPostProps {
+  postId: number;
+  initialContent: string;
+  onCancel: () => void;
+  onSave: (newContent: string) => void;
 }
 
-export interface NoteFormProps {
-  onAdd: (content: string) => void;
+export interface Post {
+  id: number;
+  author: string;
+  content: string;
+  imageUrl: string;
+  created: string;
 }
 
-export interface NoteProps {
-  id: number;
-  content: string;
+export interface RouteParams {
+  postId: string;
+
+  [key: string]: string | undefined;
 }

@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './CreatePost.css';
+import { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./CreatePost.css";
 
-const CreatePost: React.FC = () => {
-  const [postContent, setPostContent] = useState('');
+const CreatePost: FC = () => {
+  const [postContent, setPostContent] = useState("");
   const navigate = useNavigate();
 
   const handlePublish = async () => {
     try {
-      const response = await fetch('http://localhost:7070/posts', {
-        method: 'POST',
+      const response = await fetch("http://localhost:7070/posts", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           id: 0,
@@ -21,18 +21,18 @@ const CreatePost: React.FC = () => {
 
       if (response.ok) {
         // Пост успешно создан, переходим на главную страницу
-        navigate('/');
+        navigate("/");
       } else {
-        console.error('Failed to create post');
+        console.error("Failed to create post");
       }
     } catch (error) {
-      console.error('Error creating post:', error);
+      console.error("Error creating post:", error);
     }
   };
 
   const handleCancel = () => {
     // Просто переходим на главную страницу без сохранения
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -50,7 +50,7 @@ const CreatePost: React.FC = () => {
         </button>
       </div>
       <button className="cancel-button" onClick={handleCancel}>
-          ❌
+        ❌
       </button>
     </div>
   );

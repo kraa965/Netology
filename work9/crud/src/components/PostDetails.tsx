@@ -1,26 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { formatTimestamp } from "../utils/dateUtils";
 import EditPost from "./EditPost";
-
 import "./PostDetails.css";
+import { Post, RouteParams } from "../interface/interface.ts";
 
-interface RouteParams {
-  postId: string;
-
-  [key: string]: string | undefined;
-}
-
-interface Post {
-  id: number;
-  author: string;
-  content: string;
-  imageUrl: string;
-  created: string;
-}
-
-const PostDetails: React.FC = () => {
+const PostDetails: FC = () => {
   const { postId } = useParams<RouteParams>();
   const [post, setPost] = useState<Post | null>(null);
   const navigate = useNavigate();
@@ -104,13 +89,7 @@ const PostDetails: React.FC = () => {
       {!editing && (
         <>
           <h1>{`Просмотр карточки поста #${postId}`}</h1>
-          <img
-            src={post.imageUrl}
-            alt={`Post ${post.id}`}
-            className="post-image"
-          />
           <div className="post-details">
-            <p>{`Автор: ${post.author}`}</p>
             <p>{`ID: ${post.id}`}</p>
             <p>{`Содержание: ${post.content}`}</p>
             <p>{`Дата создания: ${formatTimestamp(post.created)}`}</p>
