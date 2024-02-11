@@ -9,7 +9,7 @@ function FIlter({}: Props) {
 
   const changeFilter = (evt: React.ChangeEvent) => {
     const target = evt.target as HTMLInputElement;
-    const textFilter = target.value.trim().toLowerCase();
+    const textFilter = target.value.trim();
     textFilter && console.log(textFilter);
     textFilter && dispatch(setFilter({ text: textFilter }));
     !textFilter && dispatch(stopFilter());
