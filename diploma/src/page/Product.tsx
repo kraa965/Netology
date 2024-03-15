@@ -15,9 +15,7 @@ export default function Product() {
   const [selectedSize, setSize] = useState<string | null>(null);
   const [selectedCount, setCount] = useState<number>(1);
   const navigate = useNavigate();
-  const hasAvailableSize = itemDetail?.sizes.filter(
-    (size) => size.available
-  );
+  const hasAvailableSize = itemDetail?.sizes.filter((size) => size.available);
 
   const chooseSize = (evt: MouseEvent) => {
     const target = evt.target as HTMLSpanElement;
@@ -108,7 +106,7 @@ export default function Product() {
                   <p>
                     Размеры в наличии:
                     {itemDetail?.sizes.map((size) => {
-                      if (size?.available){
+                      if (size?.available) {
                         return (
                           <span
                             className={

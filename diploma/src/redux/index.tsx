@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import StoreSlice from "./StoreSlice";
 import createSagaMiddleware from "redux-saga";
-import { sagas } from "./mySaga";
+import { rootSaga } from "./RootSaga.tsx";
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -11,7 +11,7 @@ const store = configureStore({
     getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware),
 });
 
-sagaMiddleware.run(sagas);
+sagaMiddleware.run(rootSaga);
 
 export default store;
 

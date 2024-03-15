@@ -10,6 +10,22 @@ export default function Header() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const handleSearch = () => {
+    if (!searchForm.current) return;
+    const text = (
+      searchForm.current.querySelector("input") as HTMLInputElement
+    )?.value.trim();
+    if (text) {
+      dispatch(setSearch(text));
+      dispatch(getSearchItems(text));
+      searchForm.current.reset();
+      navigate("/catalog");
+    } else {
+      searchForm.current.classList.toggle("invisible");
+      (searchForm.current.querySelector("input") as HTMLInputElement)?.focus();
+    }
+  };
+
   return (
     <header className="container">
       <div className="row">
@@ -41,53 +57,30 @@ export default function Header() {
                   </NavLink>
                 </li>
               </ul>
-              <div>
-                <div className="header-controls-pics">
-                  <div
-                    data-id="search-expander"
-                    className="header-controls-pic header-controls-search"
-                    onClick={() => {
-                      if (searchForm.current) {
-                        const text = (searchForm.current as HTMLFormElement)
-                          .querySelector("input")
-                          ?.value.trim();
-                        if (text) {
-                          dispatch(setSearch(text));
-                          dispatch(getSearchItems(text));
-                          searchForm.current.reset();
-                          navigate("/catalog");
-                          return;
-                        }
-                        (
-                          searchForm.current as HTMLFormElement
-                        ).classList.toggle("invisible");
-                        (searchForm.current as HTMLFormElement)
-                          .querySelector("input")
-                          ?.focus();
-                      }
-                    }}
-                  ></div>
-                  <NavLink to="/cart">
-                    <div className="header-controls-pic header-controls-cart">
-                      {cartList.length > 0 && (
-                        <div className="header-controls-cart-full">
-                          {cartList.length}
-                        </div>
-                      )}
-                      <div className="header-controls-cart-menu"></div>
-                    </div>
-                  </NavLink>
-                </div>
-                <form
-                  data-id="search-form"
-                  className="header-controls-search-form form-inline invisible"
-                  ref={searchForm}
-                  onSubmit={(evt) => {
-                    evt.preventDefault();
-                  }}
-                >
-                  <input className="form-control" placeholder="Поиск" />
-                </form>
+              <form
+                data-id="search-form"
+                className="header-controls-search-form form-inline invisible"
+                ref={searchForm}
+                onSubmit={(evt) => evt.preventDefault()}
+              >
+                <input className="form-control" placeholder="Поиск" />
+              </form>
+              <div className="header-controls-pics">
+                <div
+                  data-id="search-expander"
+                  className="header-controls-pic header-controls-search"
+                  onClick={handleSearch}
+                ></div>
+                <NavLink to="/cart">
+                  <div className="header-controls-pic header-controls-cart">
+                    {cartList.length > 0 && (
+                      <div className="header-controls-cart-full">
+                        {cartList.length}
+                      </div>
+                    )}
+                    <div className="header-controls-cart-menu"></div>
+                  </div>
+                </NavLink>
               </div>
             </div>
           </nav>

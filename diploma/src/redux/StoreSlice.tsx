@@ -155,13 +155,13 @@ const StoreSlice = createSlice({
     },
     addCart(state, action: PayloadAction<CartItemModel>) {
       const item = state.cart.find(
-        (el) => el.id === action.payload.id && el.size === action.payload.size
+        (el) => el.id === action.payload.id && el.size === action.payload.size,
       );
       if (item) {
         const count = item.count;
         state.cart = state.cart.filter(
           (el) =>
-            !(el.id === action.payload.id && el.size === action.payload.size)
+            !(el.id === action.payload.id && el.size === action.payload.size),
         );
         action.payload.count += count;
       }
@@ -191,21 +191,6 @@ const StoreSlice = createSlice({
   },
 });
 
-export const GET_TOP_SALES = "store/getTopSales";
-export const getTopSales = createAction(GET_TOP_SALES);
-export const GET_CATEGORY = "store/getCategory";
-export const getCategory = createAction(GET_CATEGORY);
-export const GET_ITEMS = "store/getItems";
-export const getItem = createAction<string>(GET_ITEMS);
-export const GET_MORE_ITEMS = "store/getMoreItems";
-export const getMoreItems = createAction<number>(GET_MORE_ITEMS);
-export const GET_SEARCH = "store/getSearchItems";
-export const getSearchItems = createAction<string>(GET_SEARCH);
-export const GET_ITEM_DETAIL = "store/getItemDetail";
-export const getItemDetail = createAction<string | number>(GET_ITEM_DETAIL);
-export const GET_ORDER = "store/getOrder";
-export const getOrder = createAction<OrderModel>(GET_ORDER);
-
 export const {
   getTopSalesSuccess,
   getCategoriesSuccess,
@@ -232,5 +217,20 @@ export const {
   updateCart,
   clearOrderSuccess,
 } = StoreSlice.actions;
+
+export const GET_TOP_SALES = "store/getTopSales";
+export const getTopSales = createAction(GET_TOP_SALES);
+export const GET_CATEGORY = "store/getCategory";
+export const getCategories = createAction(GET_CATEGORY);
+export const GET_ITEMS = "store/getItems";
+export const getItem = createAction<string>(GET_ITEMS);
+export const GET_MORE_ITEMS = "store/getMoreItems";
+export const getMoreItems = createAction<number>(GET_MORE_ITEMS);
+export const GET_SEARCH = "store/getSearchItems";
+export const getSearchItems = createAction<string>(GET_SEARCH);
+export const GET_ITEM_DETAIL = "store/getItemDetail";
+export const getItemDetail = createAction<string | number>(GET_ITEM_DETAIL);
+export const GET_ORDER = "store/getOrder";
+export const getOrder = createAction<OrderModel>(GET_ORDER);
 
 export default StoreSlice.reducer;

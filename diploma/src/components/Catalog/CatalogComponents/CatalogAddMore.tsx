@@ -17,7 +17,6 @@ export default function CatalogAddMore() {
   if (items.length > 5) {
     return (
       <div className="text-center">
-        {}
         <button
           className="btn btn-outline-primary"
           onClick={() => {

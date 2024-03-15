@@ -25,31 +25,28 @@ export default function CartOrder() {
       items: cartList,
     };
     dispatch(getOrder(order));
-    // TODO Придумать как не скидывать форму при ошибке !
     orderForm.current?.reset();
   };
 
-  const checkConfirm = () =>
-    setConfirm(
-      [orderData.phone !== "", orderData.address !== "", orderData.rule].every(
-        Boolean
-      )
-    );
+  const checkConfirm = () => {
+    const hasSelectedItems = cartList.length > 0;
+    const isFormValid =
+      orderData.phone.trim() !== "" &&
+      orderData.address.trim() !== "" &&
+      orderData.rule;
+    setConfirm(hasSelectedItems && isFormValid);
+  };
 
   return (
     <section className="order">
       {orderSuccess && (
         <div className="order-success">
           <h2>Заказ успешно отправлен!</h2>
-          <span>Спасибо что выбрали наш магазин. Ждем Вас обратно.</span>
+          <span>Спасибо, что выбрали наш магазин. Ждем Вас обратно.</span>
         </div>
       )}
       {isError && <ErrorInfo text={isError} />}
-      {isLoading && !isError && (
-        <div className="order-success">
-          <Loader />
-        </div>
-      )}
+      {isLoading && !isError && <Loader />}
 
       <h2 className="text-center">Оформить заказ</h2>
       <div className="card" style={{ maxWidth: "30rem", margin: "0 auto" }}>
@@ -63,12 +60,8 @@ export default function CartOrder() {
               required
               onChange={(evt) => {
                 const text = evt.target.value;
-                if (text) {
-                  const data = orderData;
-                  data.phone = text.trim();
-                  setOrderData(data);
-                  checkConfirm();
-                }
+                setOrderData((prev) => ({ ...prev, phone: text }));
+                checkConfirm();
               }}
             />
           </div>
@@ -81,12 +74,8 @@ export default function CartOrder() {
               required
               onChange={(evt) => {
                 const text = evt.target.value;
-                if (text) {
-                  const data = orderData;
-                  data.address = text.trim();
-                  setOrderData(data);
-                  checkConfirm();
-                }
+                setOrderData((prev) => ({ ...prev, address: text }));
+                checkConfirm();
               }}
             />
           </div>
@@ -97,9 +86,8 @@ export default function CartOrder() {
               id="agreement"
               required
               onChange={(evt) => {
-                const data = orderData;
-                data.rule = evt.target.checked;
-                setOrderData(data);
+                const isChecked = evt.target.checked;
+                setOrderData((prev) => ({ ...prev, rule: isChecked }));
                 checkConfirm();
               }}
             />
@@ -109,11 +97,8 @@ export default function CartOrder() {
           </div>
           <button
             type="submit"
-            className={
-              confirm
-                ? "btn btn-outline-secondary"
-                : "btn btn-outline-secondary disabled"
-            }
+            className={`btn btn-outline-secondary ${confirm ? "" : "disabled"}`}
+            disabled={!confirm}
           >
             Оформить
           </button>

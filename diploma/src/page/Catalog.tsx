@@ -5,13 +5,13 @@ import CatalogSearch from "../components/Catalog/CatalogComponents/CatalogSearch
 import Banner from "../components/Banner";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../models/hook";
-import { getCategory, getItem } from "../redux/StoreSlice";
+import { getCategories, getItem } from "../redux/StoreSlice";
 
 export default function Catalog() {
   const isLoading = useAppSelector((state) => state.loading);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getCategory());
+    dispatch(getCategories());
     dispatch(getItem("0"));
   }, [dispatch]);
 

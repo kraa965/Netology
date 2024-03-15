@@ -7,7 +7,7 @@ import ErrorInfo from "../ErrorInfo";
 
 export default function Hits() {
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector((state) => state.loading);
+  const isLoading = useAppSelector((state) => state.loading.topSales);
   const isError = useAppSelector((state) => state.error.topSales);
   const hits = useAppSelector((state) => state.topSales);
 
@@ -24,22 +24,28 @@ export default function Hits() {
     );
   }
 
-  if (isLoading.topSales)
+  if (isLoading) {
     return (
       <section className="top-sales">
         <h2 className="text-center">Хиты продаж!</h2>
         <Loader />
       </section>
     );
+  }
 
   if (hits.length > 0) {
     return (
       <section className="top-sales">
         <h2 className="text-center">Хиты продаж!</h2>
         <div className="row">
-          {hits && hits.map((card) => <Card item={card} key={card.id} />)}
+          {hits.map((card) => (
+            <Card item={card} key={card.id} />
+          ))}
         </div>
       </section>
     );
   }
+
+  // В случае, если нет данных о хитах продаж
+  return null;
 }
